@@ -4,6 +4,12 @@ with open("RNU6_269P.txt", "r") as f:
     header = next(f)
     f.close()
 
-file_contents = Path("RNU6_269P.txt").read_text()
+print(header)
 
-print(file_contents)
+filename = "RNU6_269P.txt"
+file = Path(filename)
+data = file.read_text()
+
+line = data.split('\n')
+
+print(line[0])
