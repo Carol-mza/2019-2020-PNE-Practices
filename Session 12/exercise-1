@@ -1,0 +1,16 @@
+We have to use the curl command: curl 127.0.0.1:8080 -v
+
+URL: http://127.0.0.1:8080/hello
+     GET / HTTP/1.1
+     /hello
+
+URL: http://127.0.0.1:8080/file.html
+    GET / HTTP/1.1
+    /file.html
+
+URL: http://127.0.0.1:8080/hi/there?name=virus&type=corona
+    GET / HHTTP/1.1
+    /hi/there?name=virus&type=corona
+
+What should be the URL that we have to write in the Browser for accessing the /dna/u5 resource?
+    http:/127.0.0.1:8080/dna/u5
