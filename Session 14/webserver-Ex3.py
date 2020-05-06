@@ -24,13 +24,19 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         req = self.requestline.split(" ")
         path = req[1]
 
-        if path == "/" or path == "/index.html":
-            contents = Path("index.html").read_text()
+        path = path[1:]
+
+        if path == "":
+            path = "index.html"
+
+        try:
+            contents = Path("../Session 14/" + path).read_text()
             status = 200
 
-        else:
-            contents = Path("Error.html").read_text()
+        except FileNotFoundError:
+            contents = Path("../Session 14/" + "Error.html").read_text()
             status = 404
+
 
         # Generating the response message
         self.send_response(status)  # -- Status line: OK!

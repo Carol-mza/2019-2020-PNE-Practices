@@ -1,7 +1,6 @@
 import http.server
 import socketserver
 import termcolor
-from pathlib import Path
 
 # Define the Server's port
 PORT = 8080
@@ -24,19 +23,17 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         req = self.requestline.split(" ")
         path = req[1]
 
-        if path == "/" or path == "/index.html":
-            contents = Path("index.html").read_text()
-            status = 200
+        if path == "/":
+            contents = "Welcome to my server"
 
         else:
-            contents = Path("Error.html").read_text()
-            status = 404
+            contents = "Resource not avaible"
 
         # Generating the response message
-        self.send_response(status)  # -- Status line: OK!
+        self.send_response(200)  # -- Status line: OK!
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/html')
+        self.send_header('Content-Type', 'text/plain')
         self.send_header('Content-Length', len(contents.encode()))
 
         # The header is finished
