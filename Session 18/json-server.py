@@ -6,6 +6,7 @@ from pathlib import Path
 # Define the Server's port
 PORT = 8080
 
+
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
@@ -21,35 +22,39 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
 
-        req = self.requestline.split(" ")
-        path = req[1]
+        # -- Parse the path
+        # -- NOTE: self.path already contains the requested resource
+        list_resource = self.path.split('?')
+        resource = list_resource[0]
 
-        path = path[1:]
-
-        if path == "":
-            path = "/info/list_species.html"
-
-        try:
-            contents = Path("../P5/" + path).read_text()
-            status = 200
-
-        except FileNotFoundError:
-            contents = Path("../P5/" + "/info/" +  "Error.html").read_text()
-            status = 404
-
+        if resource == "/":
+            # Read the file
+            contents = Path('index.html').read_text()
+            content_type = 'text/html'
+            error_code = 200
+        elif resource == "/listusers":
+            # Read the file
+            contents = Path('people-3.json').read_text()
+            content_type = 'application/json'
+            error_code = 200
+        else:
+            # Read the file
+            contents = Path('Error.html').read_text()
+            content_type = 'text/html'
+            error_code = 404
 
         # Generating the response message
-        self.send_response(status)  # -- Status line: OK!
+        self.send_response(error_code)  # -- Status line: OK!
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/html')
-        self.send_header('Content-Length', len(contents.encode()))
+        self.send_header('Content-Type', content_type)
+        self.send_header('Content-Length', len(str.encode(contents)))
 
         # The header is finished
         self.end_headers()
 
         # Send the response message
-        self.wfile.write(contents.encode())
+        self.wfile.write(str.encode(contents))
 
         return
 

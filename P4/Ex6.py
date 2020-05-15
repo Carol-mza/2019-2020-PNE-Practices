@@ -9,7 +9,7 @@ def get_resource(path):
     cod = 200
 
     if path == "/":
-        res = Path("Index.html").read_text()
+        res = Path("list_species.html").read_text()
 
     elif path == "/info/A":
         res = Path("A.html").read_text()
