@@ -527,7 +527,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     <html lang = "en">
                                     <head>
                                         <meta charset = "utf-8">
-                                        <title>GENE CALCULATIONS</title>
+                                        <title>GENE LIST</title>
                                     </head>
                                     <body style="background-color: lightsteelblue;">"""
 
