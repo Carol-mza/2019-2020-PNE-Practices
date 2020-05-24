@@ -164,7 +164,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         if key == "karyotype":
                             contents += f"<h3>The chromosomes:</h3>"
                             for chromosome in value:
-                                contents += f"<p> - {chromosome}</p>"
+                                if chromosome == "MT":
+                                    pass
+                                else:
+                                    contents += f"<p> - {chromosome}</p>"
 
                 else:
                     status = 404
@@ -246,7 +249,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         </head>
                                         <body style="background-color: crimson;">
                                         <h1>ERROR!</h1>
-                                        <p>Sorry not a valid chromosome</p>"""
+                                        <p>Try again</p>"""
 
             contents += f"""<a href="/">Main page</a>
                                      </body></html>"""
@@ -485,7 +488,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 basis_dict = seq.count()
 
                 for key, value in basis_dict.items():
-                    contents += f"<p>{key}: {round((value / length) * 100, 2)}%"
+                    contents += f"<p>{key}: {round((value / length) * 100, 2)}%</p>"
 
             except IndexError:
                 status = 404
@@ -569,7 +572,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                         </head>
                                         <body style="background-color: crimson;">
                                         <h1>ERROR!</h1>
-                                        <p>Not a valid region</p>"""
+                                        <p>Try again</p>"""
             except TypeError:
                 status = 404
                 contents = f"""<!DOCTYPE html>
@@ -580,23 +583,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                                     </head>
                                     <body style="background-color: crimson;">
                                     <h1>ERROR!</h1>
-                                    <p>Not a valid chromosome</p>"""
+                                    <p>Try again</p>"""
 
             contents += f"""<a href="/">Main page</a>
                                             </body></html>"""
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             # Generating response
@@ -608,7 +598,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         self.wfile.write(str.encode(contents))
 
         return
-
 
 
 
